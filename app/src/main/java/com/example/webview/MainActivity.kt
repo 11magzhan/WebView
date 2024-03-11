@@ -9,7 +9,7 @@ import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.example.webview.databinding.ActivityMainBinding
 
-private const val SEARCH_TAG = "https://google.com/search?q=%d"
+private const val SEARCH_TAG = "https://google.com/search?q="
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,32 +46,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.color1 -> {
-                binding.btnSearch.setBackgroundColor(getColor(R.color.green))
-                true
-            }
-            R.id.color2 -> {
-                binding.btnSearch.setBackgroundColor(getColor(R.color.blue))
-                true
-            }
-            R.id.color3 -> {
-                binding.btnSearch.setBackgroundColor(getColor(R.color.violet))
-                true
-            }
-            R.id.color1_land -> {
-                binding.btnSearch.setBackgroundColor(getColor(R.color.brown))
-                true
-            }
-            R.id.color2_land -> {
-                binding.btnSearch.setBackgroundColor(getColor(R.color.yellow))
-                true
-            }
-            R.id.color3_land -> {
-                binding.btnSearch.setBackgroundColor(getColor(R.color.orange))
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
+        val colorMap = mapOf(
+            R.id.color1 to R.color.green,
+            R.id.color2 to R.color.blue,
+            R.id.color3 to R.color.violet,
+            R.id.color1_land to R.color.brown,
+            R.id.color2_land to R.color.yellow,
+            R.id.color3_land to R.color.orange
+        )
+        return colorMap[item.itemId]?.let { colorRes->
+            binding.btnSearch.setBackgroundColor(getColor(colorRes))
+            true
+        } ?: super.onOptionsItemSelected(item)
     }
 }
